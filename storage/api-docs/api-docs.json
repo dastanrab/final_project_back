@@ -1,0 +1,759 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cheeta Api Docs",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://192.168.100.20/cheeta/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/v1/order/edit/{{barcode}}/product": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "ویرایش  محصول یک سفارش",
+                "description": "edit order",
+                "operationId": "updateorderحقخیعزف",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/order/{{barcode}}/ready": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "تغییر وضعیت سفارش به اماده",
+                "description": "edit order",
+                "operationId": "changestatustoready",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/order/{{barcode}}/suspend": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "تغییر وضعیت سفارش به معلق",
+                "description": "suspend order",
+                "operationId": "changestatustosuspend",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/order/prices": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "محاسبه قیمت سفارش",
+                "description": "edit order",
+                "operationId": "getorderprice",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "v1/order/status": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "لیست وضعیت سفارش های ارسالی",
+                "description": "get orders status",
+                "operationId": "getstatus",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/order/status/changes/{date}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": " لیست تغییرات سفارش با تاریخ",
+                "description": "دریافت لیست تغییرات سفارش بر اساس تاریخ",
+                "operationId": "getstatuschangedate",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date of change time",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    },
+                    "401": {
+                        "description": "No se ha autenticado, ingrese el token."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/v1/order/bulk/ready": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "تغییر وضعیت گروهی به اماده",
+                "description": "change group of orders status to ready",
+                "operationId": "groupstatusready",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "v1/order/bulk/suspend": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "تغییر وضعیت گروهی به معلق",
+                "description": "change group of orders status to suspend",
+                "operationId": "groupstatussuspend",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/order/financial": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "لیست مالی سفارشات",
+                "description": "get orders financial",
+                "operationId": "getorder financial",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/bag/create": {
+            "post": {
+                "tags": [
+                    "bag"
+                ],
+                "summary": "ایجاد کیسه",
+                "description": "create bag for given orders barcode",
+                "operationId": "bagcreate",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/bag/check": {
+            "post": {
+                "tags": [
+                    "bag"
+                ],
+                "summary": "بررسی کیسه",
+                "description": "check bag for given orders barcode",
+                "operationId": "bagcheck",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/distribute/deliver": {
+            "post": {
+                "tags": [
+                    "distribute"
+                ],
+                "summary": "تغییر وضعیت لیست توزیع",
+                "description": "change distribute orders status ",
+                "operationId": "distributechangedeliver",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "barcode"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "order barcodes",
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/collect/receive": {
+            "get": {
+                "tags": [
+                    "collect"
+                ],
+                "summary": "تغییر وضعیت لیست توزیع",
+                "description": "change distribute orders status ",
+                "operationId": "listcollect",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/v1/order/quick_search/{barcode}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": " جستجو سفارش با بارکد",
+                "description": "گرفتن سفارش با شماره بارکد",
+                "operationId": "searchorder",
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date of chanکدge time",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    },
+                    "401": {
+                        "description": "No se ha autenticado, ingrese el token."
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/projects": {
+            "get": {
+                "operationId": "e3dfa947954e394a726a0d4795bc03f2",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
+        "tag/": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "tags",
+                "description": "get tags",
+                "operationId": "51e5933cdc0520c3ae9d160c6e83b722",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/order/edit/{{barcode}}": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "ویرایش سفارش",
+                "description": "edit order",
+                "operationId": "updateorder",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "barcode": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/v1/order/register": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "ثبت سفارش",
+                "description": "User Register here",
+                "operationId": "addorder",
+                "parameters": [
+                    {
+                        "name": "x-api-key",
+                        "in": "header",
+                        "description": "api token",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "text"
+                                    },
+                                    "email": {
+                                        "type": "text"
+                                    },
+                                    "password": {
+                                        "type": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    },
+                                    "persistent": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "oauth2": [
+                            "*"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by PHONE",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "09388985617"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "bearer": {
+                "type": "http",
+                "description": "Authorization token obtained from logging in.",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            },
+            "passport": []
+        }
+    ]
+}

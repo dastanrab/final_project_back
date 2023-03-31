@@ -1,0 +1,4 @@
+<IfModule mod.rewite.c >
+Rewrite Engine On
+RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

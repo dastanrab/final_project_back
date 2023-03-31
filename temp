@@ -1,0 +1,13 @@
+  // $data=explode(' ',$row->title_cardnumber_pin);
+                   //array_push($array,$data);
+                    $validator=Validator::make($row, [
+                        'id' => 'required',
+                        'sum' => 'required',
+                        'phone' => 'required',
+                    ]);
+                  //  if ($validator->passes()) {
+                      //  array_push($array,$row['id']);
+                   // } else {
+
+                    //    array_push($errors,[$row['id'],$validator->errors()->all()]);
+                  //  }
